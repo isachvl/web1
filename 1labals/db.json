@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "5e15",
+      "login": "dddd",
+      "email": "ssss@mail.ru",
+      "password": "12345678",
+      "registeredAt": "2025-09-05T09:59:17.191Z"
+    }
+  ]
+}

@@ -7,6 +7,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column; /* Добавляем вертикальное направление */
             height: 100vh;
              
             background-color: rgba(90, 253, 199, 0.342);;
@@ -48,39 +49,63 @@
             background-color: #cbfaeb;
             cursor: pointer;
         }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .errorfatal {
+            color: red;
+            font-size: 30px;
+            margin-top: 5px;
+            display: none;
+            text-align: center;
+        }
+
+
     </style>
 </head>
 <body>
+    
 <table class="loginForm"> 
- 
+    
     <tr>
         
         <th colspan="3">Регистрация</th>
     </tr>
     <tr>
         <td colspan="3" align="center">Логин:</td>
+        
         <tr>
-        <td colspan="3" align="center"><label><input type="text" placeholder="Придумайте логин"></label></td>
+
+        <td colspan="3" align="center"><label><input type="text" id='login' placeholder="Придумайте логин"></label><div id="loginError" class="error"></div></td>
+        </tr>        
+    </tr>
+    <tr>
+        <td colspan="3" align="center">Почта:</td>
+        <tr>
+        <td colspan="3" align="center"><label><input type="email" id='mail' placeholder="youremail@yourmail.ru"></label><div id="emailError" class="error"></div></td>
         </tr>        
     </tr>
     <tr>
         <td colspan="3" align="center">Пароль:</td> 
         <tr>
-        <td colspan="3" align="center"><label ><input type="password" placeholder="Придумайте пароль"></label></td>
+        <td colspan="3" align="center"><label ><input type="password" id='password' placeholder="Придумайте пароль"></label><div id="pass1Error" class="error"></div></td>
         </tr>
     </tr>
     <tr>
         <td colspan="3" align="center">Повторите пароль:</td> 
         <tr>
-        <td colspan="3" align="center"><label ><input type="password" placeholder="Повторите пароль"></label></td>
+        <td colspan="3" align="center"><label ><input type="password" id='repitpassword' placeholder="Повторите пароль"></label><div id="pass2Error" class="error"></div></td>
         </tr>
     </tr>
     
     
-    <td align="center"><button>Создать акаунт</button><t
-    
-    d>
+    <td colspan="3" align="center"><button id="registerButton">Создать акаунт</button><td>
     </tr>
 </table>
+<div id="Error" class="errorfatal"></div>
+<script src="regis.js"></script>
 </body> 
 </html>
