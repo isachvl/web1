@@ -48,6 +48,12 @@
             background-color: #cbfaeb;
             cursor: pointer;
         }
+        .error {
+            color: rgb(6, 10, 255);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -59,25 +65,27 @@
     <tr>
         <td colspan="3" align="center">Логин:</td>
         <tr>
-        <td colspan="3" align="center"><label><input type="text" placeholder="Введите логин"></label></td>
+        <td colspan="3" align="center"><label><input type="text" id='login' placeholder="Введите логин"></label><div id="loginError" class="error"></div></td>
         </tr>        
     </tr>
     <tr>
         <td colspan="3" align="center">Пароль:</td> 
         <tr>
-        <td colspan="3" align="center"><label ><input type="password" placeholder="Введите пароль"></label></td>
+        <td colspan="3" align="center"><label ><input type="password" id="password" placeholder="Введите пароль"></label><div id="pass1Error" class="error"></div></td>
         </tr>
     </tr>
     
-    <td align="center"><button>Вход</button></td>
+    <td align="center"><button id="gobutton">Вход</button></td>
     
     
     <td align="center"><h6>или</h6></td>
     
     
-        <td align="center"><a href="reg.html"><button>Зарегестрироваться</button></a><td>
+        <td align="center"><a href="reg.html"><button >Зарегестрироваться</button></a><td>
     
     </tr>
 </table>
+
+<script src="hi.js"></script>
 </body> 
 </html>
