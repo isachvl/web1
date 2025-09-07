@@ -91,6 +91,7 @@ async function gonewAcc(){
             document.getElementById('mail').value = '';
             document.getElementById('password').value = '';
             document.getElementById('repitpassword').value = '';
+            window.location.href = 'hi.html';
             
         } catch (error) {
             alert('❌ Ошибка сохранения!');
