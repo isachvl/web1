@@ -37,12 +37,12 @@ async function gonewAcc(){
             const users = await response.json();
             
             const userExists = users.some(user => 
-                user.login === login || user.password === password
+                user.login === login && user.password === password
             );
             
             if (userExists) {
-                 
-                window.location.href = 'message.html';
+                const passcoding = btoa(password); 
+                window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
                 isVal = true;
                  
             }
