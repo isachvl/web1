@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        selectedUsers = checkedBoxes.map(cb => cb.value);// сприменяем функцию для всех чекс боксовчерез мап
+        selectedUsers = checkedBoxes.map(cb => cb.value);// сприменяем функцию для всех чекс боксовчерез мапо
         updateChat();
     }
 
