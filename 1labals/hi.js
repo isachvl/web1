@@ -1,6 +1,6 @@
-// Ждем полной загрузки DOM перед выполнением скрипта
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Находим кнопку регистрации и добавляем обработчик события
+ 
     const registerButton = document.getElementById('gobutton');
     registerButton.addEventListener('click', gonewAcc);
 });
@@ -41,9 +41,14 @@ async function gonewAcc(){
             );
             
             if (userExists) {
-                const passcoding = btoa(password); 
-                window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
-                isVal = true;
+                if (login =="admin"){
+                    const passcoding = btoa(password); 
+                    window.location.href = `admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                }
+                else {
+                    const passcoding = btoa(password); 
+                    window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                    isVal = true;}
                  
             }
             else{
