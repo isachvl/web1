@@ -51,30 +51,26 @@ async function gonewAcc(){
     }
     
     if (isVal) {
-        try {
-            const response = await fetch('http://localhost:3001/users');
-            const users = await response.json();
-            
-            const userExists = users.some(user => 
-                user.login === login || user.email === email
-            );
-            
-            if (userExists) {
-                 const loguserdoingbad = {
-                    action: `${new Date().toISOString()} Неудачная попытка регистрации ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
-                };
-                logAction(loguserdoingbad)
-                showError('Error', 'Пользователь с таким логином или email уже существует!');
-                isVal = false;
-                
-
-            }
-            
-        } catch (error) {
-            console.error('Ошибка при проверке:', error);
-            showError('Error', 'Ошибка проверки данных');
+        
+        const response = await fetch('http://localhost:3001/users');
+        const users = await response.json();
+        
+        const userExists = users.some(user => 
+            user.login === login || user.email === email
+        );
+        
+        if (userExists) {
+                const loguserdoingbad = {
+                action: `${new Date().toISOString()} Неудачная попытка регистрации ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
+            };
+            logAction(loguserdoingbad)
+            showError('Error', 'Пользователь с таким логином или email уже существует!');
             isVal = false;
+            
+
         }
+            
+        
     }
     if (isVal) {
         // 1. Подготавливаем данные
@@ -88,11 +84,10 @@ async function gonewAcc(){
             action: `${new Date().toISOString()} ЗАРЕГЕСТОВАЛСЯ НОВЫЙ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
         };
         
-        // 2. Отправляем на сервер
-        try {
+        
             logAction(loguserdoing)
             const result = await saveToDatabase(userData);
-            alert('✅ Успех! Пользователь добавлен в базу!');
+            
             
             // Очищаем форму
             document.getElementById('login').value = '';
@@ -101,9 +96,7 @@ async function gonewAcc(){
             document.getElementById('repitpassword').value = '';
             window.location.href = 'hi.html';
             
-        } catch (error) {
-            alert('❌ Ошибка сохранения!');
-        }
+       
     }
 }
 async function logAction(userData) {

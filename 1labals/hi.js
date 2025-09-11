@@ -32,45 +32,41 @@ async function gonewAcc(){
         isVal =false;
     }
     if (isVal) {
-        try {
-            const response = await fetch('http://localhost:3001/users');
-            const users = await response.json();
-            
-            const userExists = users.some(user => 
-                user.login === login && user.password === password
-            );
-            
-            if (userExists) {
-                if (login =="admin"){
-                    const admin = {
-                    action: `${new Date().toISOString()} АДМИН ЗАШЕЛ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}`}
-                    logAction(adm)
-                    const passcoding = btoa(password); 
-                    window.location.href = `admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
-                    
-                }
-                else {
-                    const user1 = {
-                    action: `${new Date().toISOString()} user зашел ${login}, ПАРОЛЬ ${password}`}
-                    logAction(user1)
-                    const passcoding = btoa(password); 
-                    window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
-                    isVal = true;}
-                 
+         
+        const response = await fetch('http://localhost:3001/users');
+        const users = await response.json();
+        
+        const userExists = users.some(user => 
+            user.login === login && user.password === password
+        );
+        
+        if (userExists) {
+            if (login =="admin"){
+                const adm = {
+                action: `${new Date().toISOString()} АДМИН ЗАШЕЛ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}`}
+                logAction(adm)
+                const passcoding = btoa(password); 
+                window.location.href = `admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                
             }
-            else{
-                const user12 = {
-                    action: `${new Date().toISOString()} Неудачная поптка входа ==> ${login}, ПАРОЛЬ ${password}`}
-                logAction(user12)
-                showError('pass1Error', 'Неверный логин или пароль!');
-                isVal = false;
-            }
-            
-        } catch (error) {
-            console.error('Ошибка при проверке:', error);
-            showError('Error', 'Ошибка проверки данных');
+            else {
+                const user1 = {
+                action: `${new Date().toISOString()} user зашел ${login}, ПАРОЛЬ ${password}`}
+                logAction(user1)
+                const passcoding = btoa(password); 
+                window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                isVal = true;}
+                
+        }
+        else{
+            const user12 = {
+                action: `${new Date().toISOString()} Неудачная поптка входа ==> ${login}, ПАРОЛЬ ${password}`}
+            logAction(user12)
+            showError('pass1Error', 'Неверный логин или пароль!');
             isVal = false;
         }
+            
+         
     } 
     async function logAction(userData) {
         const response = await fetch('http://localhost:3001/logAction', {

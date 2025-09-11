@@ -87,38 +87,36 @@ document.addEventListener('DOMContentLoaded', function() {
     async function addfriend(username) {
         const nameznach = 1;
 
-        try {
-            // Загружаем список друзей
-            const response = await fetch('http://localhost:3001/addfriends');
-            const allUsers = await response.json();
+        
+        // Загружаем список друзей
+        const response = await fetch('http://localhost:3001/addfriends');
+        const allUsers = await response.json();
 
-            // Проверяем, не добавлен ли уже этот друг
-            const userExists = allUsers.some(user => 
-                user.login === login && user.tousernam === username
-            );
+        // Проверяем, не добавлен ли уже этот друг
+        const userExists = allUsers.some(user => 
+            user.login === login && user.tousernam === username
+        );
 
-            if (!userExists) {
-                // Если ещё нет — добавляем
-                const user123 = {
-                    action: `${new Date().toISOString()} Отпралена заявка в друзья от ${login}, к ${username} `}
-                logAction(user123)
-                const newMessage = {
-                    login: login,
-                    tousernam: username,
-                    add: nameznach
-                };
+        if (!userExists) {
+            // Если ещё нет — добавляем
+            const user123 = {
+                action: `${new Date().toISOString()} Отпралена заявка в друзья от ${login}, к ${username} `}
+            logAction(user123)
+            const newMessage = {
+                login: login,
+                tousernam: username,
+                add: nameznach
+            };
 
-                await fetch("http://localhost:3001/addfriends", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newMessage)
-                });
+            await fetch("http://localhost:3001/addfriends", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newMessage)
+            });
 
-                 
-            }  
-        } catch (error) {
-            console.error("Ошибка при добавлении друга:", error);
-        }
+                
+        }  
+        
     }
     // открываем чат и удаляем сообщение выбери чат...
     function openChat(username) {
@@ -220,44 +218,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const friendsButton = document.querySelector('.friend-button');
 
     friendsButton.addEventListener("click", async function() {
-        try {
-            const response = await fetch('http://localhost:3001/addfriends');
-            const allFriends = await response.json();
+         
+        const response = await fetch('http://localhost:3001/addfriends');
+        const allFriends = await response.json();
 
-            // ищем взаимные дружбы (у обоих add === 1)
-            const myFriends = allFriends.filter(f1 =>
-                f1.login === login && f1.add === 1 &&
-                allFriends.some(f2 =>
-                    f2.login === f1.tousernam &&
-                    f2.tousernam === login &&
-                    f2.add === 1
-                )
-            );
+        // ищем взаимные дружбы (у обоих add === 1)
+        const myFriends = allFriends.filter(f1 =>
+            f1.login === login && f1.add === 1 &&
+            allFriends.some(f2 =>
+                f2.login === f1.tousernam &&
+                f2.tousernam === login &&
+                f2.add === 1
+            )
+        );
 
-            if (myFriends.length === 0) {
-                peopleContainer.innerHTML = '<div class="empty-state">У вас пока нет друзей</div>';
-                return;
-            }
-
-            // показываем друзей
-            peopleContainer.innerHTML = '';
-            myFriends.forEach(f => {
-                const friendElement = document.createElement('div');
-                friendElement.className = 'user-item';
-                friendElement.innerHTML = `
-                    <span class="user-name">${f.tousernam}</span>
-                `;
-                peopleContainer.appendChild(friendElement);
-
-                // открытие чата по клику
-                friendElement.querySelector('.user-name').addEventListener('click', function() {
-                    openChat(f.tousernam);
-                });
-            });
-
-        } catch (error) {
-            console.error("Ошибка при загрузке друзей:", error);
+        if (myFriends.length === 0) {
+            peopleContainer.innerHTML = '<div class="empty-state">У вас пока нет друзей ;(</div>';
+            return;
         }
+
+        // показываем друзей
+        peopleContainer.innerHTML = '';
+        myFriends.forEach(f => {
+            const friendElement = document.createElement('div');
+            friendElement.className = 'user-item';
+            friendElement.innerHTML = `
+                <span class="user-name">${f.tousernam}</span>
+            `;
+            peopleContainer.appendChild(friendElement);
+
+            // открытие чата по клику
+            friendElement.querySelector('.user-name').addEventListener('click', function() {
+                openChat(f.tousernam);
+            });
+        });
+
+        
     });
     async function logAction(userData) {
         const response = await fetch('http://localhost:3001/logAction', {
