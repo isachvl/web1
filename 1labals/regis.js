@@ -60,9 +60,14 @@ async function gonewAcc(){
             );
             
             if (userExists) {
-                 
+                 const loguserdoingbad = {
+                    action: `${new Date().toISOString()} Неудачная попытка регистрации ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
+                };
+                logAction(loguserdoingbad)
                 showError('Error', 'Пользователь с таким логином или email уже существует!');
                 isVal = false;
+                
+
             }
             
         } catch (error) {
@@ -79,10 +84,13 @@ async function gonewAcc(){
             password: password,
             registeredAt: new Date().toISOString()
         };
+        const loguserdoing = {
+            action: `${new Date().toISOString()} ЗАРЕГЕСТОВАЛСЯ НОВЫЙ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
+        };
         
         // 2. Отправляем на сервер
         try {
-
+            logAction(loguserdoing)
             const result = await saveToDatabase(userData);
             alert('✅ Успех! Пользователь добавлен в базу!');
             
@@ -97,6 +105,21 @@ async function gonewAcc(){
             alert('❌ Ошибка сохранения!');
         }
     }
+}
+async function logAction(userData) {
+    const response = await fetch('http://localhost:3001/logAction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+    
+    if (!response.ok) {
+        throw new Error('Ошибка сервера');
+    }
+    
+    return await response.json();
 }
 
 

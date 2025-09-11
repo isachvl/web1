@@ -99,6 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!userExists) {
                 // Если ещё нет — добавляем
+                const user123 = {
+                    action: `${new Date().toISOString()} Отпралена заявка в друзья от ${login}, к ${username} `}
+                logAction(user123)
                 const newMessage = {
                     login: login,
                     tousernam: username,
@@ -111,10 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify(newMessage)
                 });
 
-                console.log(`Пользователь ${username} добавлен в друзья`);
-            } else {
-                console.log(`Пользователь ${username} уже есть в друзьях`);
-            }
+                 
+            }  
         } catch (error) {
             console.error("Ошибка при добавлении друга:", error);
         }
@@ -162,6 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         const text = document.getElementById('message-input').value.trim();
         if (text === "") return;
+            const user12 = {
+                    action: `${new Date().toISOString()} Отпралено сообщение от ${login}, к ${currentChatUser} сообщение ${text}`}
+            logAction(user12)
+                 
             const newMessage = {
             from: login,
             to: currentChatUser,
@@ -254,5 +259,20 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Ошибка при загрузке друзей:", error);
         }
     });
+    async function logAction(userData) {
+        const response = await fetch('http://localhost:3001/logAction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Ошибка сервера');
+        }
+        
+        return await response.json();
+    }
 
 });

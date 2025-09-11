@@ -42,16 +42,26 @@ async function gonewAcc(){
             
             if (userExists) {
                 if (login =="admin"){
+                    const admin = {
+                    action: `${new Date().toISOString()} АДМИН ЗАШЕЛ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}`}
+                    logAction(adm)
                     const passcoding = btoa(password); 
                     window.location.href = `admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                    
                 }
                 else {
+                    const user1 = {
+                    action: `${new Date().toISOString()} user зашел ${login}, ПАРОЛЬ ${password}`}
+                    logAction(user1)
                     const passcoding = btoa(password); 
                     window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
                     isVal = true;}
                  
             }
             else{
+                const user12 = {
+                    action: `${new Date().toISOString()} Неудачная поптка входа ==> ${login}, ПАРОЛЬ ${password}`}
+                logAction(user12)
                 showError('pass1Error', 'Неверный логин или пароль!');
                 isVal = false;
             }
@@ -62,6 +72,21 @@ async function gonewAcc(){
             isVal = false;
         }
     } 
+    async function logAction(userData) {
+        const response = await fetch('http://localhost:3001/logAction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Ошибка сервера');
+        }
+        
+        return await response.json();
+    }
     
     
      
