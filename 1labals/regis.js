@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Находим кнопку регистрации и добавляем обработчик события
     const registerButton = document.getElementById('registerButton');
     registerButton.addEventListener('click', gonewAcc);
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.location.href = `hi.html`;
+        }
+    });
 });
 
 async function gonewAcc(){

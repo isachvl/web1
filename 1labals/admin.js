@@ -3,7 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const login = urlParams.get("login");
     const encodedPass = urlParams.get("pass");
     const password = atob(encodedPass);
-
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.location.href = `hi.html`;
+        }
+    });
     const peopleContainer = document.getElementById("people");
     const chatHeader = document.querySelector(".chat-header");
     const messagesContainer = document.querySelector(".messages-container");

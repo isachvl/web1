@@ -3,6 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
  
     const registerButton = document.getElementById('gobutton');
     registerButton.addEventListener('click', gonewAcc);
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            gonewAcc();
+        }
+    });
+
+   
+
 });
 
 async function gonewAcc(){

@@ -147,7 +147,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // задаем с кем общаеся,  и отправляем сообщение на сервер
     const sendButton = document.querySelector('.send-button');
-
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            sendmessage();
+        }
+    });
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.location.href = `hi.html`;
+        }
+    });
     sendButton.addEventListener("click", function(e) {
         sendmessage();
          
