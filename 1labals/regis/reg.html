@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="reg.css">
+</head>
+<body>
+    <table class="loginForm"> 
+        <tr>
+            <th colspan="3">Регистрация</th>
+        </tr>
+        <tr>
+            <td colspan="3">Логин:</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="text" id="login" placeholder="Придумайте логин">
+                <div id="loginError" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Почта:</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="email" id="mail" placeholder="youremail@yourmail.ru">
+                <div id="emailError" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Пароль:</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="password" id="password" placeholder="Придумайте пароль">
+                <div id="pass1Error" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Повторите пароль:</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="password" id="repitpassword" placeholder="Повторите пароль">
+                <div id="pass2Error" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button id="registerButton">Создать аккаунт</button>
+            </td>
+        </tr>
+    </table>
+
+    <div id="Error" class="errorfatal"></div>
+
+    <script src="regis.js"></script>
+</body>
+</html>

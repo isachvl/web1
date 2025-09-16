@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const login = urlParams.get("login");
     const encodedPass = urlParams.get("pass");
@@ -15,11 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let messagesList = document.createElement("div");
     messagesList.className = "messages-list";
     messagesContainer.insertBefore(messagesList, document.querySelector(".message-input-container"));
-
     let selectedUsers = [];
+    const response = await fetch('http://localhost:3001/users');
+    const users = await response.json();
+
+    // Вызов функции
+    
+
     async function userqstion(){ 
-            const response = await fetch('http://localhost:3001/users');
-            const users = await response.json();
+            
             const userExists = users.some(user => 
                 user.login === login && user.password === password
             );
@@ -29,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                  
             }
             else{
-                 window.location.href = `hi.html`;
+                 window.location.href = `../start/hi.html`;
             }
 
     }
@@ -37,13 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. Загружаем всех пользователей
     async function loadUsers() {
         
-        const response = await fetch("http://localhost:3001/users");
-        const allUsers = await response.json();
+        
 
         // очищаем контейнер
         peopleContainer.innerHTML = "";
 
-        allUsers.forEach(user => {
+        users.forEach(user => {
             if (user.login === login) return; // исключаем себя
 
             const userRow = document.createElement("div");
@@ -167,5 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
     }
+    fetchUsers();
 });
 

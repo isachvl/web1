@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админская панель</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <button class="friend-button">Логи</button>
+        <div id="people">
+            <div class="empty-state">Пользователи будут загружены здесь</div>
+        </div>
+    </aside>
+
+    <main class="chat-container">
+        <div class="chat-header-container">
+            <div class="user">Admin</div>
+            <div class="chat-header">Название чата</div>
+        </div>
+
+        <div class="messages-container">
+            <!-- Сообщения будут добавляться сюда -->
+        </div>
+
+        <div class="message-input-container">
+            <textarea id="message-input" placeholder="Введите сообщение..." rows="1"></textarea>
+            <button class="send-button">></button>
+        </div>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

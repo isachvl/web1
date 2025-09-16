@@ -1,13 +1,18 @@
  
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const login = urlParams.get('login');
     const encodedPass = urlParams.get('pass');
     const password = atob(encodedPass);
+    const response = await fetch('http://localhost:3001/users');
+    const users = await response.json();
+    const response1 = await fetch('http://localhost:3001/addfriends');
+    const allUsers = await response1.json();
+    const response12 = await fetch('http://localhost:3001/messages');
+    const messagepep = await response12.json();
     //проверка по ссылке
     async function userqstion(){ 
-            const response = await fetch('http://localhost:3001/users');
-            const users = await response.json();
+             
             const userExists = users.some(user => 
                 user.login === login && user.password === password
             );
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  
             }
             else{
-                 window.location.href = `hi.html`;
+                 window.location.href = `../start/hi.html`;
             }
 
     }
@@ -41,11 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // получаем пользователей и филтруем их что бы не наш
     async function searchUsers(query) {
                 try {
-                    const response = await fetch('http://localhost:3001/users');
-                    const allUsers = await response.json();
+                   
                     
                     
-                    const filteredUsers = allUsers.filter(user => 
+                    const filteredUsers = users.filter(user => 
                         user.login.toLowerCase().includes(query.toLowerCase()) && 
                         user.login !== login
                     );
@@ -89,8 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
         // Загружаем список друзей
-        const response = await fetch('http://localhost:3001/addfriends');
-        const allUsers = await response.json();
+        
 
         // Проверяем, не добавлен ли уже этот друг
         const userExists = allUsers.some(user => 
@@ -154,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
-            window.location.href = `hi.html`;
+            window.location.href = `../start/hi.html`;
         }
     });
     sendButton.addEventListener("click", function(e) {
@@ -198,9 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // отображаем переписку с джос
     async function loadmessaged(user) {
-        const response = await fetch('http://localhost:3001/messages');
-        const allMessages = await response.json();
-        const chatMessages = allMessages.filter(msg=>(msg.from === login && msg.to === user)||(msg.from === user && msg.to === login));
+       
+        const chatMessages = messagepep.filter(msg=>(msg.from === login && msg.to === user)||(msg.from === user && msg.to === login));
         messagesList.innerHTML = ""
         chatMessages.forEach(msg => {
             const messageDiv = document.createElement("div");
@@ -228,13 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     friendsButton.addEventListener("click", async function() {
          
-        const response = await fetch('http://localhost:3001/addfriends');
-        const allFriends = await response.json();
+         
 
         // ищем взаимные дружбы (у обоих add === 1)
-        const myFriends = allFriends.filter(f1 =>
+        const myFriends = allUsers.filter(f1 =>
             f1.login === login && f1.add === 1 &&
-            allFriends.some(f2 =>
+            allUsers.some(f2 =>
                 f2.login === f1.tousernam &&
                 f2.tousernam === login &&
                 f2.add === 1

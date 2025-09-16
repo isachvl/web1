@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     registerButton.addEventListener('click', gonewAcc);
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
-            window.location.href = `hi.html`;
+            window.location.href = `../start/hi.html`;
         }
     });
 });
@@ -99,7 +99,7 @@ async function gonewAcc(){
             document.getElementById('mail').value = '';
             document.getElementById('password').value = '';
             document.getElementById('repitpassword').value = '';
-            window.location.href = 'hi.html';
+            window.location.href = '../start/hi.html';
             
        
     }

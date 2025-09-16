@@ -1,0 +1,70 @@
+  
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    height: 100vh;
+    background-color: rgba(90, 253, 199, 0.34);
+    font-family: Arial, sans-serif;
+}
+
+ 
+.loginForm {
+    background-color: rgba(127, 255, 212, 0.46);
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #02c385;
+    padding: 20px;
+    width: 350px;
+}
+ 
+.loginForm th {
+    font-size: 40px;
+    padding: 20px;
+    color: rgb(2, 56, 39);
+}
+
+ 
+.loginForm td {
+    padding: 10px;
+    font-size: 18px;
+    color: rgb(2, 56, 39);
+}
+ 
+.loginForm input {
+    padding: 8px;
+    border: 1px solid #02c385;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #cbfaeb;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+ 
+.loginForm button {
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #cbfaeb;
+    cursor: pointer;
+    border: 1px solid #02c385;
+    margin-top: 10px;
+}
+
+ 
+.error {
+    color: rgb(6, 10, 255);
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+.errorfatal {
+    color: rgb(6, 10, 255);
+    font-size: 30px;
+    margin-top: 5px;
+    display: none;
+    text-align: center;
+}

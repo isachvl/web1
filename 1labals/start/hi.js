@@ -2,17 +2,22 @@
 document.addEventListener('DOMContentLoaded', function() {
  
     const registerButton = document.getElementById('gobutton');
+    const reg = document.getElementById('regis');
     registerButton.addEventListener('click', gonewAcc);
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             gonewAcc();
         }
     });
+    reg.addEventListener('click', goreg);
+    
 
    
 
 });
-
+function goreg(){ 
+    window.location.href = '../regis/reg.html';
+}
 async function gonewAcc(){
     const login = document.getElementById('login').value.trim();//trim удаляет пробелы
    
@@ -54,7 +59,7 @@ async function gonewAcc(){
                 action: `${new Date().toISOString()} АДМИН ЗАШЕЛ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}`}
                 logAction(adm)
                 const passcoding = btoa(password); 
-                window.location.href = `admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                window.location.href = `../admin/admin.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
                 
             }
             else {
@@ -62,7 +67,7 @@ async function gonewAcc(){
                 action: `${new Date().toISOString()} user зашел ${login}, ПАРОЛЬ ${password}`}
                 logAction(user1)
                 const passcoding = btoa(password); 
-                window.location.href = `message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
+                window.location.href = `../message/message.html?login=${encodeURIComponent(login)}&pass=${passcoding}`;
                 isVal = true;}
                 
         }
