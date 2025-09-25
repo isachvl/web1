@@ -1,41 +1,41 @@
  
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const login = urlParams.get('login');
-    const encodedPass = urlParams.get('pass');
-    const password = atob(encodedPass);
+     
+    const encodedPass = urlParams.get('token');
+    const token = encodedPass;
+    const response33 = await fetch('http://localhost:3001/token');
+    const tokenjson = await response33.json();
     const response = await fetch('http://localhost:3001/users');
     const users = await response.json();
     const response1 = await fetch('http://localhost:3001/addfriends');
     const allUsers = await response1.json();
     const response12 = await fetch('http://localhost:3001/messages');
     const messagepep = await response12.json();
-    //проверка по ссылке
-    async function userqstion(){ 
-             
-            const userExists = users.some(user => 
-                user.login === login && user.password === password
-            );
-            
-            if (userExists) {
-                return
-                 
-            }
-            else{
-                 window.location.href = `../start/hi.html`;
-            }
-
+ 
+    const userToken = tokenjson.find(t => t.token === token);
+    if (!userToken) {
+        window.location.href = '../start/hi.html';
+        return;
     }
-    userqstion()
+    // Теперь находим пользователя по логину из токена
+    const user = users.find(u => u.login === userToken.login);
+    if (!user) {
+        window.location.href = '../start/hi.html';
+        return;
+    }
+    
+    const login = user.login;  
+    
     
 
      
-    // вставляем логин слева сверху до 35
+   
     const userElement = document.querySelector('.user');
     
  
     if (userElement) {
-       
+        
         userElement.textContent = login;
     }
     const searchInput = document.getElementById('screan');
@@ -83,27 +83,27 @@ document.addEventListener('DOMContentLoaded', async function() {
             userElement.querySelector('.add-friend-btn').addEventListener('click', function() {
                 addfriend(user.login);
             });
-        });
-        
-    
-         
+        });      
     }
     async function addfriend(username) {
         const nameznach = 1;
-
-        
-        // Загружаем список друзей
-        
-
         // Проверяем, не добавлен ли уже этот друг
         const userExists = allUsers.some(user => 
             user.login === login && user.tousernam === username
         );
 
         if (!userExists) {
+            const date = new Date();
+            const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+            };
             // Если ещё нет — добавляем
             const user123 = {
-                action: `${new Date().toISOString()} Отпралена заявка в друзья от ${login}, к ${username} `}
+                action: `${(new Intl.DateTimeFormat('ru-RU', options).format(date))} Отпралена заявка в друзья от ${login}, к ${username} `}
             logAction(user123)
             const newMessage = {
                 login: login,
@@ -139,12 +139,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     // Обработчик события для поля поиска , слушатель закидывает нашего пользователя все начинает 
     searchInput.addEventListener('input', async function(event) {
-            
             const query = document.getElementById('screan').value.trim();
-      
             const users = await searchUsers(query);
-            
-             
             displayUsers(users);
         
     });
@@ -192,12 +188,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         messageDiv.className = "message sent";
         messageDiv.textContent = newMessage.text;
         messagesList.appendChild(messageDiv);
-
         messageInput.value = "";
-         
-
-
-        
     }
     // отображаем переписку с джос
     async function loadmessaged(user) {
@@ -222,16 +213,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     let messagesList = document.createElement('div');
     messagesList.className = 'messages-list';
     messagesContainer.insertBefore(messagesList, document.querySelector('.message-input-container'));
-
     messageInput.value = "";
-    
         // обработчик кнопки "Друзья"
     const friendsButton = document.querySelector('.friend-button');
-
     friendsButton.addEventListener("click", async function() {
-         
-         
-
         // ищем взаимные дружбы (у обоих add === 1)
         const myFriends = allUsers.filter(f1 =>
             f1.login === login && f1.add === 1 &&

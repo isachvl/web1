@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function gonewAcc(){
+    const date = new Date();
+    const options = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+    };
     const login = document.getElementById('login').value.trim();//trim удаляет пробелы
     const email = document.getElementById('mail').value.trim();
     const password = document.getElementById('password').value;
@@ -66,7 +74,7 @@ async function gonewAcc(){
         
         if (userExists) {
                 const loguserdoingbad = {
-                action: `${new Date().toISOString()} Неудачная попытка регистрации ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
+                action: `${(new Intl.DateTimeFormat('ru-RU', options).format(date))} Неудачная попытка регистрации ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
             };
             logAction(loguserdoingbad)
             showError('Error', 'Пользователь с таким логином или email уже существует!');
@@ -86,7 +94,7 @@ async function gonewAcc(){
             registeredAt: new Date().toISOString()
         };
         const loguserdoing = {
-            action: `${new Date().toISOString()} ЗАРЕГЕСТОВАЛСЯ НОВЫЙ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
+            action: `${(new Intl.DateTimeFormat('ru-RU', options).format(date))} Зарегестрировался НОВЫЙ ПОЛЬЗОВАТЕЛЯ ${login}, ПАРОЛЬ ${password}, ПОЧТОЙ ${email}`
         };
         
         

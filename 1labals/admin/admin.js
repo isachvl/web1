@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded",async function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const login = urlParams.get("login");
-    const encodedPass = urlParams.get("pass");
-    const password = atob(encodedPass);
+     
+    
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             window.location.href = `hi.html`;
@@ -18,26 +17,23 @@ document.addEventListener("DOMContentLoaded",async function() {
     let selectedUsers = [];
     const response = await fetch('http://localhost:3001/users');
     const users = await response.json();
-
+    const encodedPass = urlParams.get('token');
+    const token = encodedPass;
+    const response33 = await fetch('http://localhost:3001/token');
+    const tokenjson = await response33.json();
+    const response1 = await fetch("http://localhost:3001/messages");
+    const allMessages = await response1 .json();
+        
     // Вызов функции
-    
-
-    async function userqstion(){ 
-            
-            const userExists = users.some(user => 
-                user.login === login && user.password === password
-            );
-            
-            if (userExists) {
-                return
-                 
-            }
-            else{
-                 window.location.href = `../start/hi.html`;
-            }
-
+    const userToken = tokenjson.find(t => t.token === token);
+    if (!userToken) {
+        window.location.href = '../start/hi.html';
+        return;
     }
-    userqstion()
+    const user = users.find(u => u.login === userToken.login);
+    //берем логи, ищем его по токену
+    const login = user.login;  
+   
     // 1. Загружаем всех пользователей
     async function loadUsers() {
         
@@ -96,9 +92,7 @@ document.addEventListener("DOMContentLoaded",async function() {
         }
 
          
-    const response = await fetch("http://localhost:3001/messages");
-    const allMessages = await response.json();
-        
+   
     
     const chatMessages = allMessages.filter(msg => {
             if (selectedUsers.length === 2) {
